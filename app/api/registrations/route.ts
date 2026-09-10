@@ -1,0 +1,2 @@
+import {NextRequest,NextResponse} from 'next/server'
+export async function GET(req:NextRequest){if(req.cookies.get('lll_admin')?.value!=='authenticated')return NextResponse.json({error:'Unauthorized'},{status:401});const url=process.env.GOOGLE_APPS_SCRIPT_URL;if(!url)return NextResponse.json({error:'Missing Google Apps Script URL'},{status:500});const r=await fetch(url+'?action=list',{cache:'no-store'});const data=await r.json();return NextResponse.json(data)}
