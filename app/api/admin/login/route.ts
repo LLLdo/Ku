@@ -1,0 +1,2 @@
+import {NextResponse} from 'next/server'
+export async function POST(req:Request){const {username,password,remember}=await req.json();if(username!==process.env.ADMIN_USERNAME||password!==process.env.ADMIN_PASSWORD)return NextResponse.json({error:'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'},{status:401});const r=NextResponse.json({ok:true});r.cookies.set('lll_admin','authenticated',{httpOnly:true,sameSite:'lax',secure:process.env.NODE_ENV==='production',maxAge:remember?60*60*24*30:undefined,path:'/'});return r}
